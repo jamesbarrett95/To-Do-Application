@@ -8,24 +8,29 @@
   </head>
   <body>
     <div class="container">
-      <h1>To-Do Application</h1>
-      <p>What is the name of your To-Do List?<input type="text" name="" value=""></p>
+      <p>
+        What is the name of your To-Do List?
+        <input id="input" type="text" name="" value="">
+        <button id="submit" type="button">Create!</button>
+      </p>
       <p>Or... Select from some options below:</p>
-      <a class="option personal">
-        <p>Personal</p>
-      </a>
-      <a class="option shopping">
-        <p>Shopping</p>
-      </a>
-      <a class="option work">
-        <p>Work</p>
-      </a>
-      <a class="option errands">
-        <p>Errands</p>
-      </a>
-      <a class="option movies">
-        <p>Movies</p>
-      </a>
+      <section id="buttons">
+        <button id="personal" class="option">
+          <p>Personal</p>
+        </button>
+        <button id="shopping" class="option">
+          <p>Shopping</p>
+        </button>
+        <button id="work" class="option">
+          <p>Work</p>
+        </button>
+        <button id="errands" class="option">
+          <p>Errands</p>
+        </button>
+        <button id="movies" class="option">
+          <p>Movies</p>
+        </button>
+      </section>
     </div>
   </body>
 </html>

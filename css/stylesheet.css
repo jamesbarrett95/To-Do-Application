@@ -1,9 +1,32 @@
+body {
+  font-family: Segoe UI Light, sans-serif;
+}
+
 h1 {
   color: red;
 }
 
+ul {
+  padding-left: 0;
+}
+
+ul li {
+  list-style-type: none;
+  text-align: left;
+  padding-left: 30px;
+}
+
+.addItemInput {
+  float: left;
+  margin-left: 30px;
+}
+
+.addButton {
+  float: left;
+  margin-left: 20px;
+}
+
 .container {
-  width: 70%;
   margin: 0 auto;
   text-align: center;
 }
@@ -11,8 +34,26 @@ h1 {
 .option {
   display: inline-block;
   background-color: red;
-  width: 5rem;
-  height: 5rem;
+  width: 10rem;
+  height: 10rem;
   border-radius:50%;
   padding:2rem;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 1s ease;
+}
+
+.option > p {
+  color: #FFF;
+}
+
+.option:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+@media (min-width: 762px) {
+  .container {
+    width: 70%;
+    max-width: 2000px;
+  }
 }
