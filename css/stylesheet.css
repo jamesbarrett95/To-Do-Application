@@ -13,12 +13,20 @@ ul {
 ul li {
   list-style-type: none;
   text-align: left;
-  padding-left: 30px;
+  padding: 20px;
+}
+
+li span {
+  margin-right: 30px;
+}
+
+button + button {
+  margin-left: 8px;
 }
 
 .addItemInput {
   float: left;
-  margin-left: 30px;
+  margin-left: 18px;
 }
 
 .addButton {

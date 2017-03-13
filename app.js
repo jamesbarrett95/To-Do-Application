@@ -1,14 +1,26 @@
 const container = document.querySelector(".container");
 const input = document.getElementById("input");
 const submit = document.getElementById("submit");
+const entry = document.getElementById("todoentry");
 const buttonSection = document.getElementById("buttons");
 
 function createToDoList(appName) {
 
-  function addListItem(value) {
-    let li = document.createElement("li");
-    li.textContent = value;
+  function addListItem(input) {
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    const editButton = document.createElement("button");
+    const removeButton = document.createElement("button");
+    editButton.id = "edit";
+    removeButton.id = "removeButton";
+    editButton.textContent = "Edit";
+    removeButton.textContent = "Remove";
+    span.textContent = input;
+    li.appendChild(span);
+    li.appendChild(editButton);
+    li.appendChild(removeButton);
     ul.appendChild(li);
+    todoentry.value = "";
   }
 
   while (container.firstChild) {
@@ -26,6 +38,7 @@ function createToDoList(appName) {
   addItemInput.className = "addItemInput";
   addItemInput.id = "todoentry";
   container.appendChild(addItemInput);
+  addItemInput.focus();
 
   let addButton = document.createElement("button");
 
@@ -38,6 +51,12 @@ function createToDoList(appName) {
     addListItem(addItemInput.value);
   });
 
+  todoentry.addEventListener("keyup", (event) => {
+    event.preventDefault();
+    if(event.keyCode === 13) {
+      addListItem(addItemInput.value);
+    }
+  })
 }
 
 function createAppName(input) {
@@ -55,7 +74,9 @@ input.addEventListener("keyup", function(event) {
 
 submit.addEventListener("click", (event) => {
   if(input.value === "") {
-    console.log("Please enter a value");
+    let error = document.createElement("p");
+    p.textContent = "Please enter a value";
+    container.appendChild(p)
   } else {
     createAppName(input.value);
   }
