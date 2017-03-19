@@ -3,6 +3,8 @@ const input = document.getElementById("input");
 const submit = document.getElementById("submit");
 const entry = document.getElementById("todoentry");
 const buttonSection = document.getElementById("buttons");
+const allButtons = document.getElementsByTagName("button");
+
 
 // Create To-Do List
 function createToDoList(appName) {
@@ -31,9 +33,7 @@ function createToDoList(appName) {
   container.appendChild(appName);
 
   const ul = document.createElement("ul");
-  ul.id = "listItems";
   container.appendChild(ul);
-  listItems = document.getElementById("listItems");
 
   const addItemInput = document.createElement("input");
 
@@ -96,5 +96,32 @@ buttonSection.addEventListener("click", (event) => {
   if(event.target.tagName === "BUTTON") {
     let option = event.target.firstElementChild;
     createToDoList(option);
+  }
+});
+
+// Event listener added to document to capture the dynamically created buttons
+document.addEventListener("click", (event) => {
+  const button = event.target;
+  const li = button.parentNode;
+  const ul = li.parentNode;
+  if(event.target.tagName === "BUTTON") {
+    if(event.target.textContent === "Edit") {
+      const span = li.firstElementChild;
+      const input = document.createElement('input');
+      input.type = "text";
+      input.value = span.textContent;
+      li.insertBefore(input, span);
+      li.removeChild(span);
+      event.target.textContent = "Save";
+    } else if(event.target.textContent === "Remove") {
+      ul.removeChild(li);
+    } else if(event.target.textContent === "Save") {
+      const input = li.firstElementChild;
+      const span = document.createElement('span');
+      span.textContent = input.value;
+      li.insertBefore(span, input);
+      li.removeChild(input);
+      event.target.textContent = "Edit";
+    }
   }
 });
