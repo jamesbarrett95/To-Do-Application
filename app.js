@@ -4,13 +4,36 @@ const submit = document.getElementById("submit");
 const entry = document.getElementById("todoentry");
 const buttonSection = document.getElementById("buttons");
 const allButtons = document.getElementsByTagName("button");
+const listItemEntries = new Set();
 
+// Appends an error message for no input
+function appendErrorMessage(errorMessage) {
+  const firstElement = container.firstElementChild;
+  const p = document.createElement("p");
+  if(firstElement.tagName == "P") {
+    return;
+  } else {
+    p.textContent = errorMessage;
+    container.insertBefore(p, firstElement);
+  }
+}
+
+function removeErrorMessage() {
+  container.removeChild(container.firstElementChild);
+}
 
 // Create To-Do List
 function createToDoList(appName) {
 
   // Create a list item
   function addListItem(input) {
+    if(container.firstElementChild.tagName == "P") {
+      removeErrorMessage();
+    }
+    if(listItemEntries.has(input)) {
+      appendErrorMessage("This value is already inserted!");
+      return;
+    }
     const li = document.createElement("li");
     const span = document.createElement("span");
     const editButton = document.createElement("button");
@@ -23,6 +46,7 @@ function createToDoList(appName) {
     li.appendChild(removeButton);
     ul.appendChild(li);
     todoentry.value = "";
+    listItemEntries.add(input);
   }
 
   // Remove all elements within the container to begin the creation of the To-Do App
@@ -30,7 +54,13 @@ function createToDoList(appName) {
     container.removeChild(container.firstChild);
   }
 
-  container.appendChild(appName);
+  const h2 = document.createElement("h2");
+  h2.textContent = appName;
+  container.appendChild(h2);
+
+  const icon = document.createElement("i");
+  icon.className = "fa fa-pencil";
+  container.appendChild(icon);
 
   const ul = document.createElement("ul");
   container.appendChild(ul);
@@ -53,41 +83,44 @@ function createToDoList(appName) {
 
   // Add list item when clicking the 'Add' button
   addButton.addEventListener("click", (event) => {
-    addListItem(addItemInput.value);
+    if(addItemInput.value === "") {
+      appendErrorMessage("Please enter a value!");
+    } else {
+      addListItem(addItemInput.value);
+    }
   });
 
   // Add list item when pressing enter
   todoentry.addEventListener("keyup", (event) => {
     event.preventDefault();
     if(event.keyCode === 13) {
-      addListItem(addItemInput.value);
+      if(addItemInput.value === "") {
+        appendErrorMessage("Please enter a value!");
+      } else {
+        addListItem(addItemInput.value);
+      }
     }
-  })
-}
-
-// Create app
-function createAppName(input) {
-  let nameOfToDo = document.createElement("p");
-  nameOfToDo.textContent = input;
-  createToDoList(nameOfToDo);
+  });
 }
 
 // If user presses enter when naming their app, crete the app
 input.addEventListener("keyup", (event) => {
   event.preventDefault();
   if(event.keyCode == 13) {
-    createAppName(input.value);
+    if(input.value === "") {
+      appendErrorMessage("Please enter a value!");
+    } else {
+      createToDoList(input.value);
+    }
   }
 });
 
 // Create the app depending on what value is given to the app name
 submit.addEventListener("click", (event) => {
   if(input.value === "") {
-    let error = document.createElement("p");
-    p.textContent = "Please enter a value";
-    container.appendChild(p);
+    appendErrorMessage("Please enter a value!");
   } else {
-    createAppName(input.value);
+    createToDoList(input.value);
   }
 });
 
@@ -95,7 +128,7 @@ submit.addEventListener("click", (event) => {
 buttonSection.addEventListener("click", (event) => {
   if(event.target.tagName === "BUTTON") {
     let option = event.target.firstElementChild;
-    createToDoList(option);
+    createToDoList(option.textContent);
   }
 });
 
@@ -122,6 +155,24 @@ document.addEventListener("click", (event) => {
       li.insertBefore(span, input);
       li.removeChild(input);
       event.target.textContent = "Edit";
+    }
+  } else if(event.target.tagName === "I") {
+    if(event.target.className === "fa fa-pencil") {
+      const h2 = document.querySelector("h2");
+      const input = document.createElement("input");
+      input.type = "text";
+      input.id = "headingInput";
+      input.value = h2.textContent;
+      event.target.className = "fa fa-2x fa-floppy-o";
+      container.insertBefore(input, h2);
+      container.removeChild(h2);
+    } else {
+      const input = document.getElementById("headingInput");
+      const h2 = document.createElement("h2");
+      h2.textContent = input.value;
+      event.target.className = "fa fa-pencil";
+      container.insertBefore(h2, input);
+      container.removeChild(input);
     }
   }
 });
