@@ -33,6 +33,10 @@ button + button {
   margin-left: 8px;
 }
 
+[draggable] {
+  user-select: none;
+}
+
 .addItemInput {
   float: left;
   margin-left: 18px;

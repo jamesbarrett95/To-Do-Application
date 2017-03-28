@@ -38,6 +38,10 @@ function createToDoList(appName) {
         const span = document.createElement("span");
         const editButton = document.createElement("button");
         const removeButton = document.createElement("button");
+        li.setAttribute("draggable", true);
+        li.setAttribute("ondragstart", "dragStarted(event)");
+        li.setAttribute("ondragover", "draggingOver(event)");
+        li.setAttribute("ondrop", "dropped(event)");
         editButton.textContent = "Edit";
         removeButton.textContent = "Remove";
         span.textContent = input;
@@ -63,6 +67,7 @@ function createToDoList(appName) {
     container.appendChild(icon);
 
     const ul = document.createElement("ul");
+    ul.id = "list-items";
     container.appendChild(ul);
 
     const addItemInput = document.createElement("input");
@@ -189,3 +194,27 @@ document.addEventListener("click", (event) => {
         }
     }
 });
+console.log("hello");
+
+let source;
+
+function dragStarted(e) {
+  source = e.target;
+  e.dataTransfer.setData("text/plain", e.target.innerHTML);
+  e.dataTransfer.effectAllowed = "move";
+}
+
+function draggingOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+}
+
+function dropped(e) {
+  // if(e.target.tagName === "BUTTON" || e.target.tagName === "SPAN") {
+  //   const listItem = e.target.parentNode;
+  // }
+  e.preventDefault();
+  e.stopPropagation();
+  source.innerHTML = e.target.innerHTML;
+  e.target.innerHTML = e.dataTransfer.getData("text/plain");
+}
