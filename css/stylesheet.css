@@ -23,6 +23,11 @@ ul li {
   list-style-type: none;
   text-align: left;
   padding: 20px;
+  cursor: move;
+}
+
+ul li:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 li span {

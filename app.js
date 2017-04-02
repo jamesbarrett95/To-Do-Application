@@ -194,7 +194,6 @@ document.addEventListener("click", (event) => {
         }
     }
 });
-console.log("hello");
 
 let source;
 
@@ -210,11 +209,10 @@ function draggingOver(e) {
 }
 
 function dropped(e) {
-  // if(e.target.tagName === "BUTTON" || e.target.tagName === "SPAN") {
-  //   const listItem = e.target.parentNode;
-  // }
   e.preventDefault();
   e.stopPropagation();
-  source.innerHTML = e.target.innerHTML;
-  e.target.innerHTML = e.dataTransfer.getData("text/plain");
+  if(e.target.tagName === "LI") {
+    source.innerHTML = e.target.innerHTML;
+    e.target.innerHTML = e.dataTransfer.getData("text/plain");
+  }
 }
