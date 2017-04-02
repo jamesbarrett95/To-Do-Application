@@ -6,6 +6,29 @@ const buttonSection = document.getElementById("buttons");
 const allButtons = document.getElementsByTagName("button");
 const listItemEntries = new Set();
 
+// Drag started, Dragging over and dropped functions for moving list items
+let source;
+
+function dragStarted(e) {
+  source = e.target;
+  e.dataTransfer.setData("text/plain", e.target.innerHTML);
+  e.dataTransfer.effectAllowed = "move";
+}
+
+function draggingOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = "move";
+}
+
+function dropped(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  if(e.target.tagName === "LI") {
+    source.innerHTML = e.target.innerHTML;
+    e.target.innerHTML = e.dataTransfer.getData("text/plain");
+  }
+}
+
 // Appends an error message, depending on what argument is passed through
 function appendErrorMessage(errorMessage) {
     const firstElement = container.firstElementChild;
@@ -38,16 +61,19 @@ function createToDoList(appName) {
         const span = document.createElement("span");
         const editButton = document.createElement("button");
         const removeButton = document.createElement("button");
+        const trashIcon = document.createElement("i");
         li.setAttribute("draggable", true);
         li.setAttribute("ondragstart", "dragStarted(event)");
         li.setAttribute("ondragover", "draggingOver(event)");
         li.setAttribute("ondrop", "dropped(event)");
         editButton.textContent = "Edit";
-        removeButton.textContent = "Remove";
+        removeButton.textContent = "Completed";
+        trashIcon.className = "fa fa-trash-o";
         span.textContent = input;
         li.appendChild(span);
         li.appendChild(editButton);
         li.appendChild(removeButton);
+        li.appendChild(trashIcon);
         ul.appendChild(li);
         todoentry.value = "";
         listItemEntries.add(input);
@@ -151,11 +177,15 @@ document.addEventListener("click", (event) => {
             input.value = span.textContent;
             li.insertBefore(input, span);
             li.removeChild(span);
+            listItemEntries.delete(input.value);
             event.target.textContent = "Save";
-        } else if (event.target.textContent === "Remove") {
-            const span = li.firstElementChild.textContent;
-            listItemEntries.delete(span);
-            ul.removeChild(li);
+        } else if (event.target.textContent === "Completed") {
+          const hr = document.createElement("hr");
+          const span = li.firstElementChild;
+          li.insertBefore(hr, span);
+          li.style.opacity = "0.5";
+          button.disabled = true;
+          button.previousSibling.disabled = true;
         } else if (event.target.textContent === "Save") {
             const input = li.firstElementChild;
             const span = document.createElement('span');
@@ -179,6 +209,10 @@ document.addEventListener("click", (event) => {
             event.target.className = "fa fa-2x fa-floppy-o";
             container.insertBefore(input, h2);
             container.removeChild(h2);
+        } else if(event.target.className === "fa fa-trash-o") {
+          const span = li.firstElementChild.textContent;
+          listItemEntries.delete(span);
+          ul.removeChild(li);
         } else {
             const input = document.getElementById("headingInput");
             const h2 = document.createElement("h2");
@@ -194,25 +228,3 @@ document.addEventListener("click", (event) => {
         }
     }
 });
-
-let source;
-
-function dragStarted(e) {
-  source = e.target;
-  e.dataTransfer.setData("text/plain", e.target.innerHTML);
-  e.dataTransfer.effectAllowed = "move";
-}
-
-function draggingOver(e) {
-  e.preventDefault();
-  e.dataTransfer.dropEffect = "move";
-}
-
-function dropped(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  if(e.target.tagName === "LI") {
-    source.innerHTML = e.target.innerHTML;
-    e.target.innerHTML = e.dataTransfer.getData("text/plain");
-  }
-}

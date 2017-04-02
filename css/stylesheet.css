@@ -15,15 +15,27 @@ i {
   cursor: pointer;
 }
 
+i.fa.fa-trash-o {
+  float: right;
+}
+
 ul {
   padding-left: 0;
 }
 
 ul li {
+  position: relative;
   list-style-type: none;
   text-align: left;
   padding: 20px;
   cursor: move;
+}
+
+hr {
+  position: absolute;
+  top: 27px;
+  width: 90%;
+  transition: all 1s ease;
 }
 
 ul li:hover {
