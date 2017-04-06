@@ -15,7 +15,15 @@ i {
   cursor: pointer;
 }
 
+i + i {
+  margin-right: 10px;
+}
+
 i.fa.fa-trash-o {
+  float: right;
+}
+
+i.fa.fa-undo {
   float: right;
 }
 

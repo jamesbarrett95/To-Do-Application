@@ -1,0 +1,23 @@
+{
+  "name": "to-do-app",
+  "version": "1.0.0",
+  "description": "A simple To Do Application to reinforce JS Skills",
+  "main": "app.js",
+  "dependencies": {
+    "colors": "^1.1.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jamesbarrett95/To-Do-Application.git"
+  },
+  "author": "James Barrett",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jamesbarrett95/To-Do-Application/issues"
+  },
+  "homepage": "https://github.com/jamesbarrett95/To-Do-Application#readme"
+}

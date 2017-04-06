@@ -5,6 +5,7 @@ const entry = document.getElementById("todoentry");
 const buttonSection = document.getElementById("buttons");
 const allButtons = document.getElementsByTagName("button");
 const listItemEntries = new Set();
+const completedList = new Set();
 
 // Drag started, Dragging over and dropped functions for moving list items
 let source;
@@ -168,6 +169,7 @@ document.addEventListener("click", (event) => {
     const button = event.target;
     const li = button.parentNode;
     const ul = li.parentNode;
+    const trashIcon = document.querySelector('.fa fa-trash-o');
 
     if (event.target.tagName === "BUTTON") {
         if (event.target.textContent === "Edit") {
@@ -180,9 +182,12 @@ document.addEventListener("click", (event) => {
             listItemEntries.delete(input.value);
             event.target.textContent = "Save";
         } else if (event.target.textContent === "Completed") {
+          const undoButton = document.createElement("i");
+          undoButton.className = "fa fa-undo";
           const hr = document.createElement("hr");
           const span = li.firstElementChild;
           li.insertBefore(hr, span);
+          li.insertBefore(undoButton, trashIcon);
           li.style.opacity = "0.5";
           button.disabled = true;
           button.previousSibling.disabled = true;
@@ -213,6 +218,12 @@ document.addEventListener("click", (event) => {
           const span = li.firstElementChild.textContent;
           listItemEntries.delete(span);
           ul.removeChild(li);
+        } else if(event.target.className === "fa fa-undo") {
+          li.style.opacity = "1.0";
+          button.previousSibling.previousSibling.disabled = false;
+          button.previousSibling.previousSibling.previousSibling.disabled = false;
+          li.removeChild(li.firstElementChild);
+          li.removeChild(button);
         } else {
             const input = document.getElementById("headingInput");
             const h2 = document.createElement("h2");
