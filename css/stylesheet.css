@@ -1,105 +1,81 @@
-body {
-  font-family: Segoe UI Light, sans-serif;
-}
 
-h1 {
-  color: red;
-}
+    html {
+      box-sizing: border-box;
+      background:url('https://unsplash.it/1500/1500/?random') center no-repeat;
+      background-size:cover;
+      min-height:100vh;
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-family: Futura,"Trebuchet MS",Arial,sans-serif
+    }
+    *, *:before, *:after {box-sizing: inherit; }
 
-h2 {
-  display: inline-block;
-  margin-right: 7px;
-}
+    .wrapper {
+      padding: 20px;
+      max-width: 500px;
+      background: rgba(255,255,255,0.95);
+      box-shadow: 0 0 0 10px rgba(0,0,0,0.1);
+    }
 
-i {
-  cursor: pointer;
-}
+    .buttons {
+      margin-bottom: 20px;
+    }
 
-i + i {
-  margin-right: 10px;
-}
+    h1 {
+      font-size: 2rem;
+      font-weight: 200;
+    }
 
-i.fa.fa-trash-o {
-  float: right;
-}
+    h2 {
+      text-align: center;
+      margin: 0;
+      font-weight: 200;
+    }
 
-i.fa.fa-undo {
-  float: right;
-}
+    .list {
+      margin: 0;
+      padding: 0;
+      text-align: left;
+      list-style: none;
+    }
 
-ul {
-  padding-left: 0;
-}
+    .list li {
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+      padding: 10px 0;
+      font-weight: 100;
+      display: flex;
+    }
 
-ul li {
-  position: relative;
-  list-style-type: none;
-  text-align: left;
-  padding: 20px;
-  cursor: move;
-}
+    .list label {
+      flex:1;
+      cursor: pointer;
+    }
 
-hr {
-  position: absolute;
-  top: 27px;
-  width: 90%;
-  transition: all 1s ease;
-}
+    .list input {
+      display: none;
+    }
 
-ul li:hover {
-  background-color: rgba(0, 0, 0, 0.2);
-}
+    .list input + label:before {
+      content: '⬜️';
+      margin-right: 10px;
+    }
 
-li span {
-  margin-right: 30px;
-}
+    .list input:checked + label:before {
+      content: '✔️';
+    }
 
-button + button {
-  margin-left: 8px;
-}
+    .list input:checked + label {
+      opacity: 0.5
+    }
 
-[draggable] {
-  user-select: none;
-}
+    .add-items {
+      margin-top: 20px;
+    }
 
-.addItemInput {
-  float: left;
-  margin-left: 18px;
-}
-
-.addButton {
-  float: left;
-  margin-left: 20px;
-}
-
-.container {
-  margin: 0 auto;
-  text-align: center;
-}
-
-.option {
-  display: inline-block;
-  background-color: red;
-  width: 10rem;
-  height: 10rem;
-  border-radius:50%;
-  padding:2rem;
-  margin-bottom: 20px;
-  cursor: pointer;
-  transition: all 1s ease;
-}
-
-.option > p {
-  color: #FFF;
-}
-
-.option:hover {
-  background-color: rgba(255, 0, 0, 0.5);
-}
-
-@media (min-width: 762px) {
-  .container {
-    width: 70%;
-    max-width: 2000px;
-  }
-}
+    .add-items input {
+      padding:10px;
+      outline:0;
+      border:1px solid rgba(0,0,0,0.1);
+    }
